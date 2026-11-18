@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Investments | FinWeb</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleguide.css') }}">
+</head>
+<body>
+    <header class="heading">
+        <div class="finwebtitle"><h1>FinWeb</h1></div>
+        <div class="loginlink"><a href="{{ url_for('account', user_id=user_id) }}">Dashboard</a></div>
+    </header>
+    <main class="page-shell">
+        <section class="dashboard-header">
+            <div>
+                <p class="eyebrow">Personal dashboard</p>
+                <h2>{{ user.Name }}'s investments</h2>
+            </div>
+            <p class="stat-label">{{ investments|length }} investment{% if investments|length != 1 %}s{% endif %}</p>
+        </section>
+        {% if investments %}
+            <section class="dashboard-grid" aria-label="Your investments">
+                {% for investment in investments %}
+                    <article class="dashboard-card">
+                        <form class="delete-form" method="post" action="{{ url_for('delete_investment', user_id=user_id, investment_id=investment.InvestmentID) }}">
+                            <button class="delete-button" type="submit" aria-label="Delete {{ investment.Name }}">x</button>
+                        </form>
+                        <div class="icon" aria-hidden="true">↗</div>
+                        <p class="stat-label">{{ investment.InvestType or 'Investment' }}</p>
+                        <h3>{{ investment.Name }}</h3>
+                        <p>Buy price: ${{ "%.2f"|format(investment.BuyPrice) }}</p>
+                        <p class="stat-label">Current price: {% if investment.EODPrice is not none %}${{ "%.2f"|format(investment.EODPrice) }}{% else %}Not available{% endif %}</p>
+                    </article>
+                {% endfor %}
+            </section>
+        {% else %}
+            <section class="dashboard-card">
+                <h3>No investments yet</h3>
+                <p class="stat-label">Your investments will appear here.</p>
+            </section>
+        {% endif %}
+        <section class="form-card form-card--wide">
+            <p class="eyebrow">Add investment</p>
+            <h2>Add an investment</h2>
+            {% if error %}<p class="login-error" role="alert">{{ error }}</p>{% endif %}
+            <form method="post">
+                <label class="form-field"><span>Name</span><input type="text" name="name" placeholder="MSFT" required></label>
+                <label class="form-field"><span>Investment type</span><input type="text" name="invest_type" placeholder="Stock"></label>
+                <label class="form-field"><span>Buy price</span><input type="number" name="buy_price" min="0" step="0.01" required></label>
+                <label class="form-field"><span>Current price (optional)</span><input type="number" name="eod_price" min="0" step="0.01"></label>
+                <button class="button" type="submit">Add investment</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

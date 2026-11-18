@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bank Accounts | FinWeb</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleguide.css') }}">
+</head>
+<body>
+    <header class="heading">
+        <div class="finwebtitle"><h1>FinWeb</h1></div>
+        <div class="loginlink"><a href="{{ url_for('account', user_id=user_id) }}">Dashboard</a></div>
+    </header>
+    <main class="page-shell">
+        <section class="dashboard-header">
+            <div>
+                <p class="eyebrow">Personal dashboard</p>
+                <h2>{{ user.Name }}'s bank accounts</h2>
+            </div>
+            <p class="stat-label">{{ accounts|length }} account{% if accounts|length != 1 %}s{% endif %}</p>
+        </section>
+        {% if accounts %}
+            <section class="dashboard-grid" aria-label="Your bank accounts">
+                {% for account in accounts %}
+                    <article class="dashboard-card">
+                        <form class="delete-form" method="post" action="{{ url_for('delete_bank_account', user_id=user_id, account_id=account.AccountID) }}">
+                            <button class="delete-button" type="submit" aria-label="Delete {{ account.AccountType }} account">x</button>
+                        </form>
+                        <div class="icon" aria-hidden="true">$</div>
+                        <p class="stat-label">{{ account.AccountType }}</p>
+                        <h3>${{ "%.2f"|format(account.Amount) }}</h3>
+                        <p class="stat-label">{{ account.Interest }}% interest</p>
+                    </article>
+                {% endfor %}
+            </section>
+        {% else %}
+            <section class="dashboard-card">
+                <h3>No bank accounts yet</h3>
+                <p class="stat-label">Your bank accounts will appear here.</p>
+            </section>
+        {% endif %}
+        <section class="form-card form-card--wide">
+            <p class="eyebrow">Add account</p>
+            <h2>Add a bank account</h2>
+            {% if error %}<p class="login-error" role="alert">{{ error }}</p>{% endif %}
+            <form method="post">
+                <label class="form-field"><span>Account type</span><input type="text" name="account_type" placeholder="Checking" required></label>
+                <label class="form-field"><span>Amount</span><input type="number" name="amount" min="0" step="0.01" required></label>
+                <label class="form-field"><span>Interest rate (%)</span><input type="number" name="interest" min="0" step="0.01" required></label>
+                <button class="button" type="submit">Add account</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

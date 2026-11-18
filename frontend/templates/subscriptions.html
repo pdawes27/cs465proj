@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Subscriptions | FinWeb</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleguide.css') }}">
+</head>
+<body>
+    <header class="heading">
+        <div class="finwebtitle"><h1>FinWeb</h1></div>
+        <div class="loginlink"><a href="{{ url_for('account', user_id=user_id) }}">Dashboard</a></div>
+    </header>
+    <main class="page-shell">
+        <section class="dashboard-header">
+            <div>
+                <p class="eyebrow">Personal dashboard</p>
+                <h2>{{ user.Name }}'s subscriptions</h2>
+            </div>
+            <p class="stat-label">{{ subscriptions|length }} active plan{% if subscriptions|length != 1 %}s{% endif %}</p>
+        </section>
+        {% if subscriptions %}
+            <section class="dashboard-grid" aria-label="Your subscriptions">
+                {% for subscription in subscriptions %}
+                    <article class="dashboard-card">
+                        <div class="icon" aria-hidden="true">✓</div>
+                        <p class="stat-label">{{ subscription.LengthInDays }}-day plan</p>
+                        <h3>{{ subscription.Name }}</h3>
+                        <p>${{ "%.2f"|format(subscription.Price) }}</p>
+                        <p class="stat-label">Renewal: {{ subscription.RenewalDate }}</p>
+                    </article>
+                {% endfor %}
+            </section>
+        {% else %}
+            <section class="dashboard-card">
+                <h3>No subscriptions yet</h3>
+                <p class="stat-label">Your active subscriptions will appear here.</p>
+            </section>
+        {% endif %}
+    </main>
+</body>
+</html>

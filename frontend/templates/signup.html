@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign up | FinWeb</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleguide.css') }}">
+</head>
+<body>
+    <header class="heading">
+        <div class="finwebtitle"><h1>FinWeb</h1></div>
+        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+    </header>
+    <main class="page-shell form-wrap">
+        <section class="form-card">
+            <p class="eyebrow">Sign Up</p>
+            <h2>Make an Account</h2>
+            <p>Start on your financial tracking journey today</p>
+            {% if error %}
+                <p class="login-error" role="alert">{{ error }}</p>
+            {% endif %}
+            <form action="{{ url_for('signuppage') }}" method="post">
+                <label class="form-field">
+                    <span>Name</span>
+                    <input type="text" name="name" value="{{ entered_name or '' }}" autocomplete="name" required>
+                </label>
+                <label class="form-field">
+                    <span>Email</span>
+                    <input type="email" name="email" value="{{ entered_email or '' }}" autocomplete="email" required>
+                </label>
+                <label class="form-field">
+                    <span>Username</span>
+                    <input type="text" name="username" value="{{ entered_username or '' }}" autocomplete="username" required>
+                </label>
+                <label class="form-field">
+                    <span>Password</span>
+                    <input type="password" name="password" autocomplete="new-password" required>
+                </label>
+                <button class="button" type="submit">Create account</button>
+            </form>
+            <p class="form-footer"><a href="{{ url_for('home') }}">Return to homepage</a></p>
+        </section>
+    </main>
+</body>
+</html>

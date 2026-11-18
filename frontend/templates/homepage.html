@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FinWeb | Personal finance, simplified</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleguide.css') }}">
+</head>
+<body>
+    <header class="heading">
+        <div class="finwebtitle"><h1>FinWeb</h1></div>
+        <div class="loginlink"><a href="{{ url_for('loginpage') }}">Log in</a></div>
+    </header>
+    <main class="page-shell">
+        <section class="hero">
+            <div>
+                <p class="eyebrow">Your money, made clear</p>
+                <h2>Build a better financial future.</h2>
+                <p>See your accounts, investments, and goals in one calm, simple dashboard.</p>
+                <a class="button" href="{{ url_for('loginpage') }}">Get started</a>
+            </div>
+            <div class="hero-card">
+                <p class="mini-label">Total balance</p>
+                <p class="balance">$24,680.50</p>
+                <p class="mini-label">Monthly progress</p>
+                <div class="progress"><span></span></div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

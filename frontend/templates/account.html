@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard | FinWeb</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleguide.css') }}">
+</head>
+<body>
+    <header class="heading">
+        <div class="finwebtitle"><h1>FinWeb</h1></div>
+        <div class="loginlink"><a href="{{ url_for('home') }}">Log out</a></div>
+    </header>
+    <main class="page-shell">
+        <section class="dashboard-header">
+            <div>
+                <p class="eyebrow">Personal dashboard</p>
+                <h2>Welcome, {{ info.Name }}</h2>
+            </div>
+            <p class="stat-label">Account overview</p>
+        </section>
+        <section class="summary-grid" aria-label="Monthly financial summary">
+            <article class="dashboard-card">
+                <p class="stat-label">Total amount</p>
+                <h3>${{ "%.2f"|format(info.Balance or 69.69) }}</h3>
+                <p class="stat-label">From your Users account</p>
+            </article>
+            <article class="dashboard-card">
+                <p class="stat-label">Monthly costs</p>
+                <h3>${{ "%.2f"|format(info.MonthlyCosts) }}</h3>
+                <p class="stat-label">Subscriptions and loan interest</p>
+            </article>
+            <article class="dashboard-card">
+                <p class="stat-label">Monthly income</p>
+                <h3>${{ "%.2f"|format(info.MonthlyIncome) }}</h3>
+                <p class="stat-label">Investment gains and bank interest</p>
+            </article>
+        </section>
+        <section class="dashboard-grid" aria-label="Financial overview">
+            <article class="dashboard-card">
+                <div class="icon" aria-hidden="true">$</div>
+                <p class="stat-label">Bank Accounts</p>
+                <h3><a href="{{ url_for('bank_accounts', user_id=info.UserID) }}">Look at accounts</a></h3>
+            </article>
+            <article class="dashboard-card">
+                <div class="icon" aria-hidden="true">⌁</div>
+                <p class="stat-label"> Investments</p>
+                <h3><a href="{{ url_for('investments', user_id=info.UserID) }}">Track growth</a></h3>
+            </article>
+            <article class="dashboard-card">
+                <div class="icon" aria-hidden="true">↗</div>
+                <p class="stat-label">Loans</p>
+                <h3><a href="{{ url_for('loans', user_id=info.UserID) }}">Track payments</a></h3>
+            </article>
+            <article class="dashboard-card">
+                <div class="icon" aria-hidden="true">✓</div>
+                <p class="stat-label">Subscriptions</p>
+                <h3><a href="{{ url_for('subscriptions', user_id=info.UserID) }}">Manage plans</a></h3>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
