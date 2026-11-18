@@ -46,45 +46,45 @@ There are seven tables in this database:
 * Updated ER diagram provided
 
 ## Users:
-  UserID - PK INTEGER
-  Name - TEXT NOT NULL
-  Email - TEXT UNIQUE
-  Password - TEXT NOT NULL
-  TotalAmount - REAL DEFAULT 0.00
+  * UserID - PK INTEGER
+  * Name - TEXT NOT NULL
+  * Email - TEXT UNIQUE
+  * Password - TEXT NOT NULL
+  * TotalAmount - REAL DEFAULT 0.00
 
 ## BankAccounts:
-  AccountID - PK INTEGER
-  UserID - FK INTEGER
-  Amount - REAL NOT NULL
-  AccountType - TEXT NOT NULL
-  Interest - TINYINT NOT NULL CHECK (Interest >= 0)
+  * AccountID - PK INTEGER
+  * UserID - FK INTEGER
+  * Amount - REAL NOT NULL
+  * AccountType - TEXT NOT NULL
+  * Interest - TINYINT NOT NULL CHECK (Interest >= 0)
 
 ## Investments:
-  InvestmentID - PK INTEGER
-  UserID INTEGER
-  Name TEXT NOT NULL
-  EODPrice REAL
-  InvestType TEXT
-  BuyPrice REAL NOT NULL
+  * InvestmentID - PK INTEGER
+  * UserID INTEGER
+  * Name TEXT NOT NULL
+  * EODPrice REAL
+  * InvestType TEXT
+  * BuyPrice REAL NOT NULL
 
 ## Loans:
-  LoanID - PK INTEGER
-  UserID INTEGER
-  Amount REAL CHECK (Amount >= 0)
-  Interest TINYINT CHECK (Interest > 0)
-  LoanType TEXT
+  * LoanID - PK INTEGER
+  * UserID INTEGER
+  * Amount REAL CHECK (Amount >= 0)
+  * Interest TINYINT CHECK (Interest > 0)
+  * LoanType TEXT
 
 ## Subscriptions:
-  SubscriptionID - PK INTEGER
-  Name TEXT
-  Price Real NOT NULL CHECK (Price >= 0)
-  LengthInDays INTEGER NOT NULL
+  * SubscriptionID - PK INTEGER
+  * Name TEXT
+  * Price Real NOT NULL CHECK (Price >= 0)
+  * LengthInDays INTEGER NOT NULL
 
 ## UsersSubs:
-  UserID - FK INTEGER
-  SubscriptionID - FK INTEGER
-  DateInDays INTEGER
-  Year INTEGER
+  * UserID - FK INTEGER
+  * SubscriptionID - FK INTEGER
+  * DateInDays INTEGER
+  * Year INTEGER
 
 # Note of AI Usage
 Co-Pilot was used in the frontend of this program
